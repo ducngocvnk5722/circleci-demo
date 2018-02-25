@@ -17,6 +17,7 @@ func main() {
 			if len(pair) > 1 {
 				info = fmt.Sprintf("%s\n%s=%s", info, pair[0], pair[1])
 			}
+			info = info + "\nngocnd:build-300"
 		}
 		return info
 	})
