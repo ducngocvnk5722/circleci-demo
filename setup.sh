@@ -2,7 +2,7 @@ set -x
 set -e
 
 mkdir ~/.aws
-touch ~/config
+touch ~/.aws/config
 chmod 600 ~/.aws/config
 echo "[profile eb-cli]" > ~/.aws/config
 echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/config
