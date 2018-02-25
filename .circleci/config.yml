@@ -27,7 +27,7 @@ jobs:
           name: Deploy to eb
           command: |
             bash ./setup.sh
-            sudo pip install awsebcli
+            pip install awsebcli
             cd eb-deploy
             eb deploy
       - store_artifacts:
