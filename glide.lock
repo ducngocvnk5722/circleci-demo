@@ -1,0 +1,18 @@
+hash: f95ed0c86871676e43b5043018493bd12265aeddd24709428e0f72641b14a1ab
+updated: 2018-02-25T17:14:57.815977431+09:00
+imports:
+- name: github.com/andybalholm/cascadia
+  version: 901648c87902174f774fac311d7f176f8647bdaa
+- name: github.com/codegangsta/inject
+  version: 33e0aa1cb7c019ccc3fbe049a8262a6403d30504
+- name: github.com/go-martini/martini
+  version: 22fa46961aabd2665cf3f1343b146d20028f5071
+- name: github.com/PuerkitoBio/goquery
+  version: 09540e565986583836b5fc792fe951ec5fd201dd
+- name: golang.org/x/net
+  version: f315505cf3349909cdf013ea56690da34e96a451
+  subpackages:
+  - context
+  - html
+  - html/atom
+testImports: []

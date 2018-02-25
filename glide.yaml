@@ -1,0 +1,7 @@
+package: github.com/ducngocvnk57/circleci-demo
+import:
+- package: github.com/PuerkitoBio/goquery
+- package: github.com/go-martini/martini
+- package: golang.org/x/net
+  subpackages:
+  - context
