@@ -3,12 +3,8 @@ jobs:
   build:
     docker:
       # using custom image, see .circleci/images/primary/Dockerfile
-      image: ngocnd0607/circleci-build
-      working_directory: /go/src/github.com/ducngocvnk57/circleci-demo
-
-    environment:
-      TEST_RESULTS: /tmp/test-results
-
+      - image: circleci/cci-demo-docker-primary:0.0.2
+    working_directory: /go/src/github.com/circleci/cci-demo-docker
     steps:
       - checkout
       - run:
