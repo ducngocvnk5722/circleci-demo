@@ -6,6 +6,7 @@ jobs:
       - image: circleci/cci-demo-docker-primary:0.0.2
     working_directory: /go/src/github.com/circleci/cci-demo-docker
     steps:
+      - setup_remote_docker
       - checkout
       - run:
           name: Install Docker client
