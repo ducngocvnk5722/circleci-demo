@@ -26,5 +26,11 @@ func main() {
 		info = "branch is merged"
 		return info
 	})
+	m.Get("/new-build", func() string {
+		var info string
+		info = "branch is merged"
+		info = info + "\n ngocnd"
+		return info
+	})
 	m.Run()
 }
