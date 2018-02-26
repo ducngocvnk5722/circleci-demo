@@ -21,5 +21,10 @@ func main() {
 		}
 		return info
 	})
+	m.Get("/merge-branch", func() string {
+		var info string
+		info = "branch is merged"
+		return info
+	})
 	m.Run()
 }
