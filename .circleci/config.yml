@@ -8,8 +8,7 @@ jobs:
       - echo "test done"
   deploy-prod:
     docker:
-      # using custom image, see .circleci/images/primary/Dockerfile
-      - image: ngocnd0607/circleci-build
+    image: ngocnd0607/circleci-build
     working_directory: /go/src/github.com/circleci/cci-demo-docker
     steps:
       - setup_remote_docker
@@ -37,7 +36,6 @@ jobs:
             eb deploy ci-production-env
   deploy-stage:
     docker:
-      # using custom image, see .circleci/images/primary/Dockerfile
       - image: ngocnd0607/circleci-build
     working_directory: /go/src/github.com/circleci/cci-demo-docker
     steps:
@@ -71,7 +69,7 @@ workflows:
       - deploy-stage:
           filters:
             branches:
-              only: staging
+              only: develop
       - deploy-prod:
           filters:
             branches:
