@@ -1,14 +1,15 @@
 version: 2
 jobs:
   test:
-    image: ngocnd0607/circleci-build
-    working_directory: /go/src/github.com/circleci/cci-demo-docker
-    steps:
-      - checkout
-      - echo "test done"
+    docker:
+      - image: ngocnd0607/circleci-build
+      working_directory: /go/src/github.com/circleci/cci-demo-docker
+      steps:
+        - checkout
+        - echo "test done"
   deploy-prod:
     docker:
-    image: ngocnd0607/circleci-build
+      - image: ngocnd0607/circleci-build
     working_directory: /go/src/github.com/circleci/cci-demo-docker
     steps:
       - setup_remote_docker
