@@ -1,11 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
-  "Authentication": {
-    "Bucket": "elasticbeanstalk-us-west-2-727429285764",
-    "Key": ".dockercfg"
-  },
   "Image": {
-    "Name": "ngocnd0607/circleci-demo:test",
+    "Name": "none",
     "Update": "true"
   },
   "Ports": [

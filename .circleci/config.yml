@@ -31,10 +31,10 @@ jobs:
           name: Build and push Docker image
           command: |
             TAG="0.1.${CIRCLE_BUILD_NUM}"
-            docker build -t ngocnd0607/circleci-demo:$TAG .
-            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-            docker push ngocnd0607/circleci-demo:$TAG
-            gulp build --tag=$TAG
+            docker build -t $DOCKER_REPOSITORY:$TAG .
+            docker login -u AWS -p $DOCKER_PASSWORD $DOCKER_REPOSITORY
+            docker push $DOCKER_REPOSITORY:$TAG
+            gulp build --url=$DOCKER_REPOSITORY:$TAG
       - run:
           name: Deploy to eb
           command: |
@@ -65,10 +65,10 @@ jobs:
           name: Build and push Docker image
           command: |
             TAG="0.1.${CIRCLE_BUILD_NUM}"
-            docker build -t ngocnd0607/circleci-demo:$TAG .
-            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-            docker push ngocnd0607/circleci-demo:$TAG
-            gulp build --tag=$TAG
+            docker build -t $DOCKER_REPOSITORY:$TAG .
+            docker login -u AWS -p $DOCKER_PASSWORD $DOCKER_REPOSITORY
+            docker push $DOCKER_REPOSITORY:$TAG
+            gulp build --url=$DOCKER_REPOSITORY:$TAG
       - run:
           name: Deploy to eb
           command: |
