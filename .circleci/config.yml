@@ -6,7 +6,7 @@ jobs:
         environment:
           DB_DRIVER: mysql
           DB_DNS: "root:root@tcp(localhost:3306)/circleci-demo?charset=utf8&parseTime=True&loc=Local"
-      - image: postgres:9.4.1
+      - image: circleci/mysql:5.7
         environment:
           MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: root
