@@ -5,7 +5,7 @@
     "Key": ".dockercfg"
   },
   "Image": {
-    "Name": "ngocnd0607/circleci-demo",
+    "Name": "ngocnd0607/circleci-demo:test",
     "Update": "true"
   },
   "Ports": [
