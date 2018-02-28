@@ -40,7 +40,7 @@ jobs:
           command: |
             bash ./setup.sh
             cd eb-deploy
-            eb deploy ci-production-env
+            ~/.local/bin/eb deploy ci-production-env
   deploy-stage:
     docker:
       - image: ngocnd0607/circleci-build
