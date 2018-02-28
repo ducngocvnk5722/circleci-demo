@@ -14,4 +14,5 @@ RUN apt-get install -y nodejs
 RUN npm install -g gulp
 # #install glide
 RUN curl https://glide.sh/get | sh
-RUN go get -u github.com/pressly/goose/cmd/goose    
+RUN go get -u github.com/pressly/goose/cmd/goose
+RUN apt-get install -y netcat    
