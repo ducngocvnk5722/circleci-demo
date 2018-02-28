@@ -14,6 +14,7 @@ jobs:
     working_directory: /go/src/github.com/ducngocvnk57/circleci-demo
     steps:
       - checkout
+      - run: glide up
       - run:
           name: Waiting for mysql to be ready
           command: |
