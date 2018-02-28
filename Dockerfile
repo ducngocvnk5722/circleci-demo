@@ -2,8 +2,6 @@ FROM golang:1.9.1
 
 WORKDIR /go/src/github.com/eb-go-sample
 
-RUN glide up
-
 COPY app.go	.
 
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .

@@ -15,6 +15,10 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
+          name: Install depent
+          command: |
+            glide up 
+      - run:
           name: Install Docker client
           command: |
             set -x
@@ -42,6 +46,10 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
+      - run:
+          name: Install depent
+          command: |
+            glide up 
       - run:
           name: Install Docker client
           command: |
