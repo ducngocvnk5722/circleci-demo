@@ -5,7 +5,7 @@ jobs:
       - image: ngocnd0607/circleci-build
         environment:
           DB_DRIVER: mysql
-          DB_DNS: "root:root@tcp(localhost:3306)/hrbrain?charset=utf8&parseTime=True&loc=Local"
+          DB_DNS: "root:root@tcp(localhost:3306)/circleci-demo?charset=utf8&parseTime=True&loc=Local"
       - image: postgres:9.4.1
         environment:
           MYSQL_USER: root
