@@ -15,9 +15,10 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
-          name: Install depent
+          name: Install dependent
           command: |
-            glide up 
+            glide up
+            npm install 
       - run:
           name: Install Docker client
           command: |
@@ -30,9 +31,10 @@ jobs:
           name: Build and push Docker image
           command: |
             TAG="0.1.${CIRCLE_BUILD_NUM}"
-            docker build -t ngocnd0607/circleci-demo .
+            docker build -t ngocnd0607/circleci-demo:$TAG .
             docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-            docker push ngocnd0607/circleci-demo
+            docker push ngocnd0607/circleci-demo:$TAG
+            gulp build --tag=$TAG
       - run:
           name: Deploy to eb
           command: |
@@ -47,9 +49,10 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
-          name: Install depent
+          name: Install dependent
           command: |
-            glide up 
+            glide up
+            npm install 
       - run:
           name: Install Docker client
           command: |
@@ -62,9 +65,10 @@ jobs:
           name: Build and push Docker image
           command: |
             TAG="0.1.${CIRCLE_BUILD_NUM}"
-            docker build -t ngocnd0607/circleci-demo .
+            docker build -t ngocnd0607/circleci-demo:$TAG .
             docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-            docker push ngocnd0607/circleci-demo
+            docker push ngocnd0607/circleci-demo:$TAG
+            gulp build --tag=$TAG
       - run:
           name: Deploy to eb
           command: |
