@@ -13,6 +13,7 @@ jobs:
           MYSQL_DATABASE: circleci-demo
     working_directory: /go/src/github.com/ducngocvnk57/circleci-demo
     steps:
+      - checkout
       - run:
         name: Waiting for mysql to be ready
         command: |
@@ -23,7 +24,6 @@ jobs:
             sleep 1
           done
           echo Failed waiting for mysql && exit 1
-      - checkout
       - run: goose -dir migrations $DB_DRIVER $DB_DNS up
       - run: go test -cover -v -timeout 300s github.com/ducngocvnk57/circleci-demo/services
   deploy-prod:
