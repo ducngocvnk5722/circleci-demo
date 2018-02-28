@@ -74,7 +74,7 @@ jobs:
           command: |
             bash ./setup.sh
             cd eb-deploy
-            eb deploy ci-stage-env
+            ~/.local/bin/eb deploy ci-stage-env
 workflows:
   version: 2
   build-deploy:
