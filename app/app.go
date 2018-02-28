@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 	"sync"
-	"time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -28,9 +27,6 @@ func Db() *gorm.DB {
 		if err != nil {
 			log.Fatalln("connect database failed")
 		}
-		db.DB().SetMaxIdleConns(10)
-		db.DB().SetConnMaxLifetime(time.Minute * 10)
-		db.DB().SetMaxOpenConns(20)
 	})
 	return db
 }
