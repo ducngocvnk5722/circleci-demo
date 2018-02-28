@@ -2,7 +2,7 @@ FROM golang:1.9.1
 
 WORKDIR /go/src/github.com/eb-go-sample
 
-RUN go get github.com/go-martini/martini
+RUN glide up
 
 COPY app.go	.
 
