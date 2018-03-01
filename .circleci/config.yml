@@ -53,7 +53,7 @@ jobs:
             TAG="0.1.${CIRCLE_BUILD_NUM}"
             docker build -t $DOCKER_REPOSITORY:$TAG .
             docker login -u AWS -p $DOCKER_PASSWORD $DOCKER_REPOSITORY
-            docker push $DOCKER_REPOSITORY:$TAG
+            aws ecr get-login --no-include-email | bash
             gulp build --url=$DOCKER_REPOSITORY:$TAG
       - run:
           name: Deploy to eb
@@ -87,7 +87,7 @@ jobs:
             TAG="0.1.${CIRCLE_BUILD_NUM}"
             docker build -t $DOCKER_REPOSITORY:$TAG .
             docker login -u AWS -p $DOCKER_PASSWORD $DOCKER_REPOSITORY
-            docker push $DOCKER_REPOSITORY:$TAG
+            aws ecr get-login --no-include-email | bash
             gulp build --url=$DOCKER_REPOSITORY:$TAG
       - run:
           name: Deploy to eb
