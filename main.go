@@ -1,17 +1,20 @@
 package main
 
 import (
+	"github.com/ducngocvnk57/circleci-demo/app"
+	"github.com/ducngocvnk57/circleci-demo/services"
 	"github.com/gin-gonic/gin"
 )
 
-var DB = make(map[string]string)
+var DB = app.Db()
 
 func setupRouter() *gin.Engine {
 	// Disable Console Color
 	// gin.DisableConsoleColor()
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
-		c.String(200, "hello world")
+		test := services.GetAllJobType()
+		c.JSON(200, test)
 	})
 	// Ping test
 	r.GET("/ping", func(c *gin.Context) {
@@ -21,12 +24,7 @@ func setupRouter() *gin.Engine {
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
 		user := c.Params.ByName("name")
-		value, ok := DB[user]
-		if ok {
-			c.JSON(200, gin.H{"user": user, "value": value})
-		} else {
-			c.JSON(200, gin.H{"user": user, "status": "no value"})
-		}
+		c.JSON(200, gin.H{"user": user, "status": "no value"})
 	})
 
 	// Authorized group (uses gin.BasicAuth() middleware)
@@ -42,15 +40,12 @@ func setupRouter() *gin.Engine {
 	}))
 
 	authorized.POST("admin", func(c *gin.Context) {
-		user := c.MustGet(gin.AuthUserKey).(string)
-
 		// Parse JSON
 		var json struct {
 			Value string `json:"value" binding:"required"`
 		}
 
 		if c.Bind(&json) == nil {
-			DB[user] = json.Value
 			c.JSON(200, gin.H{"status": "ok"})
 		}
 	})
