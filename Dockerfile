@@ -11,7 +11,7 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 
 COPY --from=builder /go/src/github.com/ducngocvnk57/circleci-demo/demo-app .
-COPY --from=builder /go/src/github.com/ducngocvnk57/circleci-demo/goose .
+COPY --from=builder /go/src/github.com/ducngocvnk57/circleci-demo/bin/goose .
 COPY --from=builder /go/src/github.com/ducngocvnk57/circleci-demo/run.sh .
 RUN chmod +x run.sh
 COPY --from=builder /go/src/github.com/ducngocvnk57/circleci-demo/migrations ./migrations/
