@@ -57,8 +57,8 @@ jobs:
       - run:
           name: Deploy to eb
           command: |
-            bash ./setup.sh
             cd eb-deploy
+            ~/.local/bin/eb init
             ~/.local/bin/eb deploy ci-production-env
   deploy-stage:
     docker:
@@ -90,8 +90,8 @@ jobs:
       - run:
           name: Deploy to eb
           command: |
-            bash ./setup.sh
             cd eb-deploy
+            ~/.local/bin/eb init
             ~/.local/bin/eb deploy ci-stage-env
 workflows:
   version: 2
