@@ -26,7 +26,7 @@ jobs:
             done
             echo Failed waiting for mysql && exit 1
       - run: goose -dir migrations $DB_DRIVER $DB_DNS up
-      - run: go test -cover -v -timeout 300s ./...
+      - run: make test
   deploy-prod:
     docker:
       - image: ngocnd0607/circleci-build
