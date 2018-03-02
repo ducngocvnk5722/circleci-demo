@@ -50,7 +50,7 @@ jobs:
       - run:
           name: Build and push Docker image
           command: |
-            TAG="0.1.${CIRCLE_BUILD_NUM}"
+            TAG="latest"
             docker build -t $DOCKER_REPOSITORY:$TAG .
             ~/.local/bin/aws ecr get-login --region $AWS_DEFAULT_REGION | bash
             gulp build --url=$DOCKER_REPOSITORY:$TAG
@@ -83,7 +83,7 @@ jobs:
       - run:
           name: Build and push Docker image
           command: |
-            TAG="0.1.${CIRCLE_BUILD_NUM}"
+            TAG="latest"
             docker build -t $DOCKER_REPOSITORY:$TAG .
             ~/.local/bin/aws ecr get-login --region $AWS_DEFAULT_REGION | bash
             gulp build --url=$DOCKER_REPOSITORY:$TAG
