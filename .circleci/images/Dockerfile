@@ -7,6 +7,7 @@ RUN chsh root -s /bin/bash
 #install elastic beanstalk command line
 #RUN pip install awsebcli --upgrade --ignore-installed six
 RUN pip install awsebcli --upgrade --user
+RUN pip install awscli --upgrade --user
 RUN echo PATH=~/.local/bin:$PATH >> ~/.bashrc 
 #install node
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
