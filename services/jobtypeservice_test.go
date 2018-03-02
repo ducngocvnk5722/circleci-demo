@@ -14,7 +14,7 @@ func TestGetAllJobType(t *testing.T) {
 	}{
 		{
 			name: "test",
-			want: []models.JobType{},
+			want: []models.JobType{models.JobType{}},
 		},
 	}
 	for _, tt := range tests {
