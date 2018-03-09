@@ -11,6 +11,8 @@ jobs:
           MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: circleci-demo
+        command:
+          mysqld --sql-mode=NO_ENGINE_SUBSTITUTION
     working_directory: /go/src/github.com/ducngocvnk57/circleci-demo
     steps:
       - checkout
