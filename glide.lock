@@ -1,6 +1,14 @@
-hash: f580049791ff52b796beedf69f7dff307a10f05e649b327ec29b641f2fd87dfb
-updated: 2018-02-28T17:00:33.383855657+09:00
+hash: b619035002d5ef92a2e7f8642380cc67750cc32ed697f419f2125ac15f397724
+updated: 2018-03-12T16:44:34.120734516+09:00
 imports:
+- name: github.com/asaskevich/govalidator
+  version: fdf19785fd3558d619ef81212f5edf1d6c2a5911
+- name: github.com/aws/aws-sdk-go
+  version: 4590e9b51cd6698144a025a75608fa7a90752d5d
+- name: github.com/dgrijalva/jwt-go
+  version: 2268707a8f0843315e2004ee4f1d021dc08baedf
+- name: github.com/fukata/golang-stats-api-handler
+  version: ab9f90f16caab828afda479fd34bfbbbba2efcee
 - name: github.com/gin-contrib/sse
   version: 22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae
 - name: github.com/gin-gonic/gin
@@ -22,10 +30,14 @@ imports:
   version: 1c35d901db3da928c72a72d8458480cc9ade058f
 - name: github.com/mattn/go-isatty
   version: 6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c
+- name: github.com/newrelic/go-agent
+  version: bb868b52cb3f7eebeec20fdb485ab7d4b126cdc4
 - name: github.com/ugorji/go
   version: 16f09ef744fd4227190f626f14cfdefb14362b3b
   subpackages:
   - codec
+- name: github.com/varstr/uaparser
+  version: 3f72c3531abf00d462b56debf9ba8b7116ed8b01
 - name: golang.org/x/sys
   version: f6cff0780e542efa0c8e864dc8fa522808f6a598
   subpackages:
