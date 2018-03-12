@@ -18,12 +18,13 @@ jobs:
           keys:
             - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
             - v1-glide-deps-{{ .Branch }}-
-            - v1-glide-deps-
-      - run: glide up
+            - v1-glide-deps
+      - run: glide install
       - save_cache:
           key: v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
           paths:
             - vendor/
+            - glide.lock
       - run:
           name: Waiting for mysql to be ready
           command: |
@@ -48,11 +49,12 @@ jobs:
             - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
             - v1-glide-deps-{{ .Branch }}-
             - v1-glide-deps-
-      - run: glide up
+      - run: glide install
       - save_cache:
           key: v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
           paths:
             - vendor/
+            - glide.lock
       - restore_cache:
           keys:
             - v1-npm-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
