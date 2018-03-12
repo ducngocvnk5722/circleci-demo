@@ -60,7 +60,7 @@ jobs:
             - v1-npm-deps-
       - run: npm install
       - save_cache:
-          key: v-npm-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          key: v1-npm-deps-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - node_modules/
       - run:
