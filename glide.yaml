@@ -15,5 +15,3 @@ import:
 - package: github.com/varstr/uaparser
   version: 3f72c3531abf00d462b56debf9ba8b7116ed8b01
 - package: github.com/fukata/golang-stats-api-handler
-- package: github.com/newrelic/go-agent
-  version: bb868b52cb3f7eebeec20fdb485ab7d4b126cdc4
