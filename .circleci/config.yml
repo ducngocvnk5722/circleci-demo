@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: ngocnd0607/circleci-build
+      - image: 727429285764.dkr.ecr.us-west-2.amazonaws.com/primary_image
         environment:
           DB_DRIVER: mysql
           DB_DNS: "root:root@tcp(localhost:3306)/circleci-demo?charset=utf8&parseTime=True&loc=Local"
@@ -39,7 +39,7 @@ jobs:
       - run: make test
   deploy-prod:
     docker:
-      - image: ngocnd0607/circleci-build
+      - image: 727429285764.dkr.ecr.us-west-2.amazonaws.com/primary_image
     working_directory: /go/src/github.com/ducngocvnk57/circleci-demo
     steps:
       - setup_remote_docker
@@ -90,7 +90,7 @@ jobs:
             ~/.local/bin/eb deploy ci-production-env
   deploy-stage:
     docker:
-      - image: ngocnd0607/circleci-build
+      - image: 727429285764.dkr.ecr.us-west-2.amazonaws.com/primary_image
     working_directory: /go/src/github.com/ducngocvnk57/circleci-demo
     steps:
       - setup_remote_docker
