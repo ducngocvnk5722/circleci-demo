@@ -17,7 +17,7 @@ func setupRouter() *gin.Engine {
 	r.GET("/", func(c *gin.Context) {
 		test := services.GetAllJobType()
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
-			"title": "Main website",
+			"title": "Main website 201803121547",
 			"test":  test,
 		})
 	})
