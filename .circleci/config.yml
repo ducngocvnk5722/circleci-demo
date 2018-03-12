@@ -18,7 +18,7 @@ jobs:
           keys:
             - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
             - v1-glide-deps-{{ .Branch }}-
-            - v1-glide-deps-
+            - v1-glide-deps
       - run: glide up
       - save_cache:
           key: v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
