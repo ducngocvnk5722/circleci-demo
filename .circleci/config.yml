@@ -21,10 +21,10 @@ jobs:
             - v1-glide-deps-
       - run: glide up
       - save_cache:
-        keys:
-          - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
-        path:
-          - vendor/
+          keys:
+            - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+          path:
+            - vendor/
       - run:
           name: Waiting for mysql to be ready
           command: |
@@ -51,10 +51,10 @@ jobs:
             - v1-glide-deps-
       - run: glide up
       - save_cache:
-        keys:
-          - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
-        path:
-          - vendor/
+          keys:
+            - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+          path:
+            - vendor/
       - restore_cache:
           keys:
             - v1-npm-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
@@ -62,8 +62,10 @@ jobs:
             - v1-npm-deps-
       - run: npm install
       - save_cache:
-        key:
-          - v-npm-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          key:
+            - v-npm-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          path:
+            - node_modules/
       - run:
           name: Install Docker client
           command: |
