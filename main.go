@@ -31,6 +31,10 @@ func setupRouter() *gin.Engine {
 		user := c.Params.ByName("name")
 		c.JSON(200, gin.H{"user": user, "status": "no value"})
 	})
+	r.GET("/user/:name/detail", func(c *gin.Context) {
+		user := c.Params.ByName("name")
+		c.JSON(200, gin.H{"user": user, "status": "no value"})
+	})
 
 	// Authorized group (uses gin.BasicAuth() middleware)
 	// Same than:
