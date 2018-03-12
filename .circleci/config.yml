@@ -14,7 +14,17 @@ jobs:
     working_directory: /go/src/github.com/ducngocvnk57/circleci-demo
     steps:
       - checkout
+      - restore_cache:
+        keys:
+          - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+          - v1-glide-deps-{{ .Branch }}-
+          - v1-glide-deps-
       - run: glide up
+      - save_cache:
+        keys:
+          - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+        path:
+          - vendor/
       - run:
           name: Waiting for mysql to be ready
           command: |
@@ -34,11 +44,26 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
-      - run:
-          name: Install dependent
-          command: |
-            glide up
-            npm install 
+      - restore_cache:
+        keys:
+          - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+          - v1-glide-deps-{{ .Branch }}-
+          - v1-glide-deps-
+      - run: glide up
+      - save_cache:
+        keys:
+          - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+        path:
+          - vendor/
+      - restore_cache:
+        keys:
+          - v1-npm-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+          - v1-npm-deps-{{ .Branch }}-
+          - v1-npm-deps-
+      - run: npm install
+      - save_cache:
+        key:
+          - v-npm-deps-{{ .Branch }}-{{ checksum "package.json" }}
       - run:
           name: Install Docker client
           command: |
