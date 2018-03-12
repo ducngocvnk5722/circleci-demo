@@ -15,10 +15,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
-          - v1-glide-deps-{{ .Branch }}-
-          - v1-glide-deps-
+          keys:
+            - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+            - v1-glide-deps-{{ .Branch }}-
+            - v1-glide-deps-
       - run: glide up
       - save_cache:
         keys:
@@ -45,10 +45,10 @@ jobs:
       - setup_remote_docker
       - checkout
       - restore_cache:
-        keys:
-          - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
-          - v1-glide-deps-{{ .Branch }}-
-          - v1-glide-deps-
+          keys:
+            - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+            - v1-glide-deps-{{ .Branch }}-
+            - v1-glide-deps-
       - run: glide up
       - save_cache:
         keys:
@@ -56,10 +56,10 @@ jobs:
         path:
           - vendor/
       - restore_cache:
-        keys:
-          - v1-npm-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
-          - v1-npm-deps-{{ .Branch }}-
-          - v1-npm-deps-
+          keys:
+            - v1-npm-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+            - v1-npm-deps-{{ .Branch }}-
+            - v1-npm-deps-
       - run: npm install
       - save_cache:
         key:
