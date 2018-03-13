@@ -144,7 +144,7 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - test
+      - build
       - deploy-stage:
           requires:
             - build
