@@ -49,6 +49,9 @@ jobs:
             # Notice this `set -o pipefail`, this will cause script to fail if `make test` fails
             # without this option script will return success regardless of testing result due to pipe after test command
             make test | tee ${TEST_RESULTS}/go-test.out
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: raw-test-output
       - store_test_results:
           path: /tmp/test-results
   deploy-prod:
