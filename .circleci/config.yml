@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  build:
     docker:
       - image: circleci/cci-demo-docker-primary:0.0.2
         environment:
@@ -22,6 +22,7 @@ jobs:
             - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
             - v1-glide-deps-{{ .Branch }}-
             - v1-glide-deps
+      - run: curl https://glide.sh/get | sh
       - run: glide install
       - save_cache:
           key: v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
@@ -146,13 +147,13 @@ workflows:
       - test
       - deploy-stage:
           requires:
-            - test
+            - build
           filters:
             branches:
               only: develop
       - deploy-prod:
           requires:
-            - test
+            - build
           filters:
             branches:
               only: master  
