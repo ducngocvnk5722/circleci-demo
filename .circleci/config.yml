@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: 727429285764.dkr.ecr.us-west-2.amazonaws.com/primary_image
+      - image: circleci/cci-demo-docker-primary:0.0.2
         environment:
           DB_DRIVER: mysql
           DB_DNS: "root:root@tcp(localhost:3306)/circleci-demo?charset=utf8&parseTime=True&loc=Local"
