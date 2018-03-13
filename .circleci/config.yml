@@ -39,6 +39,7 @@ jobs:
               sleep 1
             done
             echo Failed waiting for mysql && exit 1
+      - run: go get -u github.com/pressly/goose/cmd/goose
       - run: goose -dir migrations $DB_DRIVER $DB_DNS up
       - run: mkdir -p $TEST_RESULTS
       - run: go get -u github.com/jstemmer/go-junit-report
