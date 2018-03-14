@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/ducngocvnk57/circleci-demo/app"
 	"github.com/ducngocvnk57/circleci-demo/services"
 	"github.com/gin-gonic/gin"
@@ -14,15 +16,25 @@ func setupRouter() *gin.Engine {
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
 		test := services.GetAllJobType()
-		c.JSON(200, test)
+		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+			"title": "Main website 201803121547",
+			"test":  test,
+		})
 	})
 	// Ping test
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(200, "pong")
 	})
+	r.GET("/test-time", func(c *gin.Context) {
+		c.String(200, "pong")
+	})
 
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
+		user := c.Params.ByName("name")
+		c.JSON(200, gin.H{"user": user, "status": "no value"})
+	})
+	r.GET("/user/:name/detail", func(c *gin.Context) {
 		user := c.Params.ByName("name")
 		c.JSON(200, gin.H{"user": user, "status": "no value"})
 	})
@@ -55,6 +67,8 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	r := setupRouter()
+	r.Static("/assets", "./assets")
+	r.LoadHTMLGlob("views/*")
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
 }

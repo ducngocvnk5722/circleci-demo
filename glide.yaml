@@ -4,3 +4,14 @@ import:
   version: v1.2
 - package: github.com/jinzhu/gorm
   version: v1.9.1
+- package: gopkg.in/yaml.v2
+  version: 4c78c975fe7c825c6d1466c42be594d1d6f3aba6
+- package: github.com/dgrijalva/jwt-go
+  version: 2268707a8f0843315e2004ee4f1d021dc08baedf
+- package: github.com/asaskevich/govalidator
+  version: fdf19785fd3558d619ef81212f5edf1d6c2a5911
+- package: github.com/aws/aws-sdk-go
+  version: 4590e9b51cd6698144a025a75608fa7a90752d5d
+- package: github.com/varstr/uaparser
+  version: 3f72c3531abf00d462b56debf9ba8b7116ed8b01
+- package: github.com/fukata/golang-stats-api-handler
