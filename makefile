@@ -11,5 +11,3 @@ test-cover-html:
 		tail -n +2 coverage.out >> coverage-all.out;)
 	go tool cover -html=coverage-all.out -o cover.html
 	go tool cover -func=coverage-all.out >> func-cover.txt
-	rm coverage.out
-	rm coverage-all.out
