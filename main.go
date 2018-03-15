@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/ducngocvnk57/circleci-demo/app"
@@ -37,6 +39,13 @@ func setupRouter() *gin.Engine {
 	r.GET("/user/:name/detail", func(c *gin.Context) {
 		user := c.Params.ByName("name")
 		c.JSON(200, gin.H{"user": user, "status": "no value"})
+	})
+	r.POST("/payload", func(c *gin.Context) {
+		payloadJson := c.PostForm("payload")
+		var payloadContent interface{}
+		json.Unmarshal([]byte(payloadJson), &payloadContent)
+		fmt.Println(payloadContent)
+		c.JSON(200, gin.H{"message": "i received messgage"})
 	})
 
 	// Authorized group (uses gin.BasicAuth() middleware)
