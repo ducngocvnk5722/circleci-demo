@@ -88,7 +88,7 @@ import (
 
 var db = app.Db()
 
-func GetAllJobType() []models.JobType <span class="cov8" title="1">{
+func GetAllJobType() []models.JobType <span class="cov10" title="4">{
         var jobtypes []models.JobType
         db.Find(&amp;jobtypes)
         return jobtypes
@@ -101,10 +101,10 @@ import (
         "github.com/ducngocvnk57/circleci-demo/models"
 )
 
-func GetAllUser() ([]models.User, error) <span class="cov8" title="1">{
+func GetAllUser() ([]models.User, error) <span class="cov10" title="4">{
         var users []models.User
         err := db.Find(&amp;users).Error
-        if err != nil </span><span class="cov8" title="1">{
+        if err != nil </span><span class="cov10" title="4">{
                 return users, err
         }</span>
         <span class="cov0" title="0">return users, nil</span>
