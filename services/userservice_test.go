@@ -14,7 +14,7 @@ func TestGetAllUser(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "test",
+			name:    "test test",
 			want:    []models.User{},
 			wantErr: false,
 		},

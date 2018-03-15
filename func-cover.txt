@@ -1,0 +1,9 @@
+github.com/ducngocvnk57/circleci-demo/services/jobtypeservice.go:10:	GetAllJobType	100.0%
+github.com/ducngocvnk57/circleci-demo/services/userservice.go:7:	GetAllUser	80.0%
+total:									(statements)	87.5%
+github.com/ducngocvnk57/circleci-demo/services/jobtypeservice.go:10:	GetAllJobType	100.0%
+github.com/ducngocvnk57/circleci-demo/services/userservice.go:7:	GetAllUser	80.0%
+total:									(statements)	87.5%
+github.com/ducngocvnk57/circleci-demo/services/jobtypeservice.go:10:	GetAllJobType	100.0%
+github.com/ducngocvnk57/circleci-demo/services/userservice.go:7:	GetAllUser	80.0%
+total:									(statements)	87.5%
