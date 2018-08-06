@@ -1,0 +1,9 @@
+package: github.com/ducngocvnk57/circleci-demo
+import:
+- package: github.com/gin-gonic/gin
+  version: v1.2
+- package: github.com/jinzhu/gorm
+  version: v1.9.1
+- package: github.com/gin-contrib/sse
+- package: github.com/DATA-DOG/go-sqlmock
+  version: v1.3.0

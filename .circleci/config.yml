@@ -1,0 +1,171 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/cci-demo-docker-primary:0.0.2
+        environment:
+          DB_DRIVER: mysql
+          DB_DNS: "root:root@tcp(localhost:3306)/circleci-demo?charset=utf8&parseTime=True&loc=Local"
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_USER: root
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: circleci-demo
+        command:
+          mysqld --sql-mode=NO_ENGINE_SUBSTITUTION
+    working_directory: /go/src/github.com/ducngocvnk57/circleci-demo
+    environment:
+      TEST_RESULTS: /tmp/test-results
+
+    steps:
+      - checkout
+      # - restore_cache:
+      #     keys:
+      #       - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+      - run: curl https://glide.sh/get | sh
+      - run: glide install
+      # - save_cache:
+      #     key: v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+      #     paths:
+      #       - vendor/
+      #       - glide.lock
+      - run:
+          name: Waiting for mysql to be ready
+          command: |
+            for i in `seq 1 10`;
+            do
+              nc -z localhost 3306 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for mysql && exit 1
+      - run: go get -u github.com/pressly/goose/cmd/goose
+      - run: goose -dir migrations $DB_DRIVER $DB_DNS up
+      - run: mkdir -p $TEST_RESULTS
+      - run: go get -u github.com/jstemmer/go-junit-report
+      - run: 
+          name: Run unit tests
+          command: |
+            set -ou pipefail
+            trap "go-junit-report <${TEST_RESULTS}/go-test.out > ${TEST_RESULTS}/go-test-report.xml" EXIT
+            # Notice this `set -o pipefail`, this will cause script to fail if `make test` fails
+            # without this option script will return success regardless of testing result due to pipe after test command
+            make test | tee ${TEST_RESULTS}/go-test.out
+            
+      - run: make test-cover-html
+      - run: mv cover.html ${TEST_RESULTS}/
+      - run: mv func-cover.txt ${TEST_RESULTS}/
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: raw-test-output
+      - store_test_results:
+          path: /tmp/test-results
+  deploy-prod:
+    docker:
+      - image: 727429285764.dkr.ecr.us-west-2.amazonaws.com/primary_image
+    working_directory: /go/src/github.com/ducngocvnk57/circleci-demo
+    steps:
+      - setup_remote_docker
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+            - v1-glide-deps-{{ .Branch }}-
+            - v1-glide-deps-
+      - run: glide install
+      - save_cache:
+          key: v1-glide-deps-{{ .Branch }}-{{ checksum "glide.yaml" }}
+          paths:
+            - vendor/
+            - glide.lock
+      - restore_cache:
+          keys:
+            - v1-npm-deps-{{ .Branch }}-{{ checksum "package.json" }}
+            - v1-npm-deps-{{ .Branch }}-
+            - v1-npm-deps-
+      - run: npm install
+      - save_cache:
+          key: v1-npm-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - node_modules/
+            - package-lock.json
+      - run:
+          name: Install Docker client
+          command: |
+            set -x
+            VER="17.03.0-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            mv /tmp/docker/* /usr/bin
+      - run:
+          name: Build and push Docker image
+          command: |
+            TAG="0.1.${CIRCLE_BUILD_NUM}"
+            docker build -t $DOCKER_REPOSITORY:$TAG .
+            ~/.local/bin/aws ecr get-login --region $AWS_DEFAULT_REGION | bash
+            docker push $DOCKER_REPOSITORY:$TAG
+            gulp build --url=$DOCKER_REPOSITORY:$TAG
+      - run:
+          name: Deploy to eb
+          command: |
+            cd eb-deploy
+            ~/.local/bin/eb init
+            ~/.local/bin/eb deploy ci-prd
+  deploy-stage:
+    docker:
+      - image: 727429285764.dkr.ecr.us-west-2.amazonaws.com/primary_image
+    working_directory: /go/src/github.com/ducngocvnk57/circleci-demo
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Install dependent
+          command: |
+            glide up
+            npm install 
+      - run:
+          name: Install Docker client
+          command: |
+            set -x
+            VER="17.03.0-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            mv /tmp/docker/* /usr/bin
+      - run:
+          name: Build and push Docker image
+          command: |
+            TAG="0.1.${CIRCLE_BUILD_NUM}"
+            docker build -t $DOCKER_REPOSITORY:$TAG .
+            ~/.local/bin/aws ecr get-login --region $AWS_DEFAULT_REGION | bash
+            docker push $DOCKER_REPOSITORY:$TAG
+            gulp build --url=$DOCKER_REPOSITORY:$TAG
+      - run:
+          name: Deploy to eb
+          command: |
+            cd eb-deploy
+            ~/.local/bin/eb init
+            ~/.local/bin/eb deploy ci-stage-env
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy-stage:
+          requires:
+            - build
+          filters:
+            branches:
+              only: develop
+      - hold:
+          type: approval
+          requires:
+            - build
+          filters:
+            branches:
+              only: master  
+      - deploy-prod:
+          requires:
+            - hold
+          filters:
+            branches:
+              only: master  
